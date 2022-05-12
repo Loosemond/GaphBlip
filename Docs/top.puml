@@ -1,0 +1,35 @@
+@startuml
+
+Window <|.. WindowGLFW : Implements
+HelloTriangleApplication "1" *-- "1" Window : Composition
+WindowGLFW "1" *-- "1" GLFW : Composition
+HelloTriangleApplication "1" *-- "1" VulkanInstance : Composition
+
+
+class HelloTriangleApplication {
+    +void run()
+    -void initWindow()
+    -void initVulkan()
+    -void mainLoop()
+    -void cleanup()
+    -bool checkValidationLayerSupport()
+    -std::unique_ptr<Window> window
+    -VkInstance instance
+}
+
+class Window {
+ +{abstract} bool closeFLag()
+ +{abstract} void pollEvents()
+ +{abstract} const char **getRequiredInstanceExtensions(uint32_t *count)
+}
+
+class WindowGLFW {
+ +bool closeFLag()
+ +void pollEvents()
+ +const char **getRequiredInstanceExtensions(uint32_t *count)
+ -GLFWwindow *windowPtr
+}
+
+@enduml
+
+
