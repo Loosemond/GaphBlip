@@ -34,3 +34,8 @@ const char **WindowGLFW::getRequiredInstanceExtensions(uint32_t *count)
 {
     return glfwGetRequiredInstanceExtensions(count);
 }
+
+bool WindowGLFW::CreateWindowSurface(VkInstance &instance, VkSurfaceKHR &surface)
+{
+    return glfwCreateWindowSurface(instance, windowPtr, nullptr, &surface);
+}

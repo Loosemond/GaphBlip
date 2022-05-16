@@ -11,6 +11,7 @@ public:
     virtual bool closeFLag() = 0;
     virtual void pollEvents() = 0;
     virtual const char **getRequiredInstanceExtensions(uint32_t *count) = 0;
+    virtual bool CreateWindowSurface(VkInstance &instance, VkSurfaceKHR &surface) = 0;
 
 protected:
     Window() = default;
