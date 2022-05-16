@@ -1,6 +1,7 @@
 @startuml
 
 Window <|.. WindowGLFW : Implements
+VulkanInstance <|.. WindowGLFW : Depends
 HelloTriangleApplication "1" *-- "1" Window : Composition
 WindowGLFW "1" *-- "1" GLFW : Composition
 HelloTriangleApplication "1" *-- "1" VulkanInstance : Composition

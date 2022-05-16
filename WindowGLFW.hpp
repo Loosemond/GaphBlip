@@ -1,5 +1,5 @@
 #pragma once
-
+#define GLFW_INCLUDE_VULKAN
 #include <GLFW/glfw3.h>
 
 #include "Window.hpp"
@@ -13,6 +13,8 @@ public:
     bool closeFLag() override;
     void pollEvents() override;
     const char **getRequiredInstanceExtensions(uint32_t *count) override;
+    bool CreateWindowSurface(VkInstance &instance, VkSurfaceKHR &surface) override;
+
     ~WindowGLFW();
 
 private:
