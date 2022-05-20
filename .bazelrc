@@ -1,0 +1,5 @@
+build --cxxopt='-std=c++2a' --linkopt='-lglfw' --linkopt='-lvulkan' --linkopt='-ldl' --linkopt='-lpthread' --linkopt='-lX11' --linkopt='-lXxf86vm' --linkopt='-lXrandr' --linkopt='-lXi'
+
+
+
+
