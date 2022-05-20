@@ -1,5 +1,5 @@
 #define GLFW_INCLUDE_VULKAN
-#include "WindowGLFW.hpp"
+#include "window/WindowGLFW.hpp"
 
 // STD
 #include <iostream>
