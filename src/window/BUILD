@@ -6,9 +6,9 @@ cc_library(
         "*.cpp",
         "*.hpp",
     ]),
+    visibility = ["//visibility:public"],
     deps = [
         "//third_party/glfw",
         "@rules_vulkan//vulkan:vulkan_cc_library",
     ],
-    visibility = ["//visibility:public"],
 )
