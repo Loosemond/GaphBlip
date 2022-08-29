@@ -39,3 +39,9 @@ bool WindowGLFW::CreateWindowSurface(VkInstance &instance, VkSurfaceKHR &surface
 {
     return glfwCreateWindowSurface(instance, windowPtr, nullptr, &surface);
 }
+
+void WindowGLFW::WindowPixelResolution(int &width, int &height)
+{
+    glfwGetFramebufferSize(windowPtr, &width, &height);
+    return;
+}
