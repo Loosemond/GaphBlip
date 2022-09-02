@@ -6,10 +6,6 @@ cc_binary(
         "*.cpp",
         "*.hpp",
     ]),
-    data = [
-        "//src/shaders/triangle:frag_shader",
-        "//src/shaders/triangle:vert_shader",
-    ],
     deps = [
         "//src/window",
         "//third_party/glfw",
