@@ -187,6 +187,7 @@ private:
         rasterizer.depthClampEnable = VK_FALSE;
         rasterizer.rasterizerDiscardEnable = VK_FALSE;
         rasterizer.polygonMode = VK_POLYGON_MODE_FILL;
+        // rasterizer.polygonMode = VK_POLYGON_MODE_LINE;
         rasterizer.lineWidth = 1.0f;
         rasterizer.cullMode = VK_CULL_MODE_BACK_BIT;
         rasterizer.frontFace = VK_FRONT_FACE_CLOCKWISE;
@@ -477,7 +478,7 @@ private:
         score += deviceProperties.limits.maxImageDimension2D;
 
         // Application can't function without geometry shaders
-        if (!deviceFeatures.geometryShader)
+        if (!deviceFeatures.geometryShader & deviceFeatures.fillModeNonSolid)
         {
             return 0;
         }
@@ -555,6 +556,8 @@ private:
         }
 
         VkPhysicalDeviceFeatures deviceFeatures{};
+        //  Enabling features
+        deviceFeatures.fillModeNonSolid = VK_TRUE;
 
         VkDeviceCreateInfo createInfo{};
         createInfo.sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;
