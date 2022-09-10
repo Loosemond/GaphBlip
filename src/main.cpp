@@ -54,7 +54,6 @@ private:
     std::vector<VkImageView> swapChainImageViews;
     VkPipelineLayout pipelineLayout;
     VkRenderPass renderPass;
-    VkPipelineLayout pipelineLayout;
 
     const std::vector<const char *> deviceExtensions = {
         VK_KHR_SWAPCHAIN_EXTENSION_NAME};
@@ -74,7 +73,7 @@ private:
         createSwapChain();
         createImageViews();
         createGraphicsPipeline();
-        createRenderPass()
+        createRenderPass();
     }
 
     void mainLoop()
