@@ -54,6 +54,7 @@ private:
     std::vector<VkImageView> swapChainImageViews;
     VkPipelineLayout pipelineLayout;
     VkRenderPass renderPass;
+    VkPipeline graphicsPipeline;
 
     const std::vector<const char *> deviceExtensions = {
         VK_KHR_SWAPCHAIN_EXTENSION_NAME};
@@ -72,8 +73,8 @@ private:
         createLogicalDevice();
         createSwapChain();
         createImageViews();
-        createGraphicsPipeline();
         createRenderPass();
+        createGraphicsPipeline();
     }
 
     void mainLoop()
@@ -87,6 +88,8 @@ private:
     void cleanup()
     {
         // Order is important
+        vkDestroyPipeline(device, graphicsPipeline, nullptr);
+        vkDestroyPipelineLayout(device, pipelineLayout, nullptr);
         vkDestroyPipelineLayout(device, pipelineLayout, nullptr);
         vkDestroyRenderPass(device, renderPass, nullptr);
         vkDestroyPipelineLayout(device, pipelineLayout, nullptr);
@@ -104,8 +107,8 @@ private:
     void createGraphicsPipeline()
     {
         // Load shaders
-        auto vertShaderCode = readFile("src/shaders/triangle/fragment.frag.spv");
-        auto fragShaderCode = readFile("src/shaders/triangle/vertex.vert.spv");
+        auto vertShaderCode = readFile("src/shaders/triangle/vertex.vert.spv");
+        auto fragShaderCode = readFile("src/shaders/triangle/fragment.frag.spv");
 
         // Create them (local)
         VkShaderModule vertShaderModule = createShaderModule(vertShaderCode);
@@ -129,10 +132,6 @@ private:
         vertShaderStageInfo.pSpecializationInfo = nullptr;
 
         VkPipelineShaderStageCreateInfo shaderStages[] = {vertShaderStageInfo, fragShaderStageInfo};
-
-        // Clean up
-        vkDestroyShaderModule(device, fragShaderModule, nullptr);
-        vkDestroyShaderModule(device, vertShaderModule, nullptr);
 
         // Setting up dynamic states so that we can change these parameters at draw time
         std::vector<VkDynamicState> dynamicStates = {
@@ -243,6 +242,33 @@ private:
         {
             throw std::runtime_error("failed to create pipeline layout!");
         }
+
+        VkGraphicsPipelineCreateInfo pipelineInfo{};
+        pipelineInfo.sType = VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_CREATE_INFO;
+        pipelineInfo.stageCount = 2;
+        pipelineInfo.pStages = shaderStages;
+        pipelineInfo.pVertexInputState = &vertexInputInfo;
+        pipelineInfo.pInputAssemblyState = &inputAssembly;
+        pipelineInfo.pViewportState = &viewportState;
+        pipelineInfo.pRasterizationState = &rasterizer;
+        pipelineInfo.pMultisampleState = &multisampling;
+        pipelineInfo.pDepthStencilState = nullptr; // Optional
+        pipelineInfo.pColorBlendState = &colorBlending;
+        pipelineInfo.pDynamicState = &dynamicState;
+        pipelineInfo.layout = pipelineLayout;
+        pipelineInfo.renderPass = renderPass;
+        pipelineInfo.subpass = 0;
+        pipelineInfo.basePipelineHandle = VK_NULL_HANDLE; // Optional
+        pipelineInfo.basePipelineIndex = -1;              // Optional
+        if (vkCreateGraphicsPipelines(device, VK_NULL_HANDLE, 1, &pipelineInfo, nullptr, &graphicsPipeline) != VK_SUCCESS)
+        {
+            throw std::runtime_error("failed to create graphics pipeline!");
+        }
+
+        vkDestroyShaderModule(device, fragShaderModule, nullptr);
+        vkDestroyShaderModule(device, vertShaderModule, nullptr);
+
+        // Clean up
     }
 
     VkShaderModule createShaderModule(const std::vector<char> &code)
@@ -267,7 +293,7 @@ private:
 
         if (!file.is_open())
         {
-            throw std::runtime_error("failed to open file!");
+            throw std::runtime_error("Failed to open: " + filename);
         }
 
         size_t fileSize = (size_t)file.tellg();
