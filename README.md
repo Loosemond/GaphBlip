@@ -8,3 +8,5 @@ https://medium.com/codex/vulkan-in-bazel-projects-part-1-environment-setup-e9fc2
 https://github.com/Morfly/vulkan-bazel-samples
 
 https://github.com/jadarve/rules_vulkan
+
+https://shanee.io/blog/2019/05/28/bazel-with-visual-studio-code/
