@@ -15,7 +15,7 @@ public:
     const char **getRequiredInstanceExtensions(uint32_t *count) override;
     bool CreateWindowSurface(VkInstance &instance, VkSurfaceKHR &surface) override;
     void WindowPixelResolution(int &width, int &height) override;
-
+    GLFWwindow *GetPointer();
     ~WindowGLFW();
 
 private:
