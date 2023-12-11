@@ -15,3 +15,13 @@ https://github.com/Morfly/vulkan-bazel-samples
 https://github.com/jadarve/rules_vulkan
 
 https://shanee.io/blog/2019/05/28/bazel-with-visual-studio-code/
+
+Depends on
+libx11-dev
+libxcursor-dev
+libxrandr-dev
+libxinerama-dev
+libxi-dev
+vulkan-sdk
+libglfw3-dev
+libxxf86vm-dev
